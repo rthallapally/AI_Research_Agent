@@ -1,8 +1,11 @@
 ## 🤖 AI Research Agent
+
 An intelligent research assistant that autonomously conducts research, gathers information from multiple sources, synthesizes findings with confidence scores, and generates a comprehensive research report — all through an intuitive Streamlit UI.
 
 ## 🚀 Features
+
 ✅ Multi-step research planning (with sub-questions)
+
 ✅ Gathers evidence from:
 
 🌐 Web (DuckDuckGo Search)
@@ -10,12 +13,19 @@ An intelligent research assistant that autonomously conducts research, gathers i
 📚 Academic papers (arXiv, PubMed)
 
 📄 Local documents (PDF, text)
+
 ✅ Uses GROQ LLMs (e.g., LLaMA 3.1) for synthesis
+
 ✅ Confidence scores (%) for all findings
+
 ✅ Executive summary & citations
+
 ✅ Outputs a clean, structured report
+
 ✅ Streamlit web interface with real-time progress
+
 ✅ Exports reports as .txt
+
 ✅ Includes automated tests
 
 ## 🛠️ Technology Stack
@@ -36,19 +46,24 @@ An intelligent research assistant that autonomously conducts research, gathers i
 🧪 Pytest — Testing
 
 ## 📋 Project Architecture
+
 ![AI_Research_Agent drawio (1)](https://github.com/user-attachments/assets/cf004fe9-297c-4599-8b3d-2fe9a5364038)
 
 
 ## 📦 Installation & Setup
+
 1️⃣ Clone the repo
 
 git clone https://github.com/rthallapally/AI_Research_Agent.git
+
 cd AI_Research_Agent
 
 2️⃣ Set up a virtual environment
 
 python -m venv venv
+
 source venv/bin/activate      # On Mac/Linux
+
 venv\Scripts\activate         # On Windows
 
 3️⃣ Install dependencies
@@ -59,23 +74,29 @@ pip install -r requirements.txt
 Create a .env file in the project root:
 
 GROQ_API_KEY="your-groq-api-key"
+
 ZILLIZ_URI="your-zilliz-uri"
+
 ZILLIZ_API_KEY="your-zilliz-api-key"
 
 ## 🚀 Running the App
+
 Start the Streamlit UI:
 
 streamlit run app.py
 
 Then open your browser at:
+
 👉 http://localhost:8501
 
 🧪 Running Tests
+
 To run the automated tests:
 
 pytest tests/
 
 ## 📜 Example Output
+
 ✅ Executive Summary
 
 ✅ Findings (one per sub-question)
@@ -103,4 +124,5 @@ References: [1], [2], …
 
 
 ## 📄 License
+
 This project is licensed under the MIT License.
