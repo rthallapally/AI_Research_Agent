@@ -36,18 +36,9 @@ An intelligent research assistant that autonomously conducts research, gathers i
 🧪 Pytest — Testing
 
 ## 📋 Project Architecture
-less
-Copy
-Edit
-[ User (Streamlit UI) ]
-        |
-  [ LangGraph Orchestrator ]
-        |
-----------------------------------------------------
-| Planner | Gatherer | Vector Store | Synthesizer |
-    ↓         ↓            ↔            ↓
-  Sub-qs   Evidence      Stores      Findings +
-           Gathering     Chunks     Executive Summary
+![AI_Research_Agent drawio (1)](https://github.com/user-attachments/assets/cf004fe9-297c-4599-8b3d-2fe9a5364038)
+
+
 ## 📦 Installation & Setup
 1️⃣ Clone the repo
 
@@ -109,27 +100,6 @@ Area 2: Y% confidence
 ...
 
 References: [1], [2], …
-
-## 📝 Folder Structure
-.
-├── agent/                # Core pipeline modules
-│   ├── planner.py
-│   ├── gatherer.py
-│   ├── gather_web.py
-│   ├── gather_docs.py
-│   ├── gather_academic.py
-│   ├── synthesizer.py
-│   ├── vectorstore.py
-│   └── chunker.py
-├── docs/                 # Example PDFs
-├── tests/                # Unit tests
-├── app.py                # Streamlit UI
-├── graph.py              # LangGraph pipeline definition
-├── requirements.txt
-├── README.md
-├── LICENSE
-└── .env                  # (not committed — secrets)
-
 
 
 ## 📄 License
