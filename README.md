@@ -1,4 +1,4 @@
-## 🤖 AI Research Agent for Healthcare Diagnostics
+## 🤖 AI Research Agent
 An intelligent research assistant that autonomously conducts research, gathers information from multiple sources, synthesizes findings with confidence scores, and generates a comprehensive research report — all through an intuitive Streamlit UI.
 
 ## 🚀 Features
