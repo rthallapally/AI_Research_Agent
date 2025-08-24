@@ -1,5 +1,11 @@
-venv/
-#__pycache__/
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Env files
 .env
-chroma_db/
-data.json/
+
+# Data
+data.json
