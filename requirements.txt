@@ -1,30 +1,55 @@
+# ---- Core LLM + Orchestration ----
+python-dotenv
 langchain
-langchain-openai
 langchain-community
 langgraph
+langchain-groq
+
+# ---- Streamlit app ----
 streamlit
-openai
-python-dotenv
+streamlit-cytoscapejs
+st-link-analysis
 
-chromadb
-langchain-chroma
-
+# ---- Retrieval & parsing ----
 requests
 beautifulsoup4
+lxml             
 newspaper3k
+duckduckgo-search
 ddgs
 pymupdf
 langchain-text-splitters
-sentence-transformers
-
 arxiv
-pubmed
-
-fpdf
 python-docx
+fpdf
 
+# Newspaper helpers (often auto-installed, but pinning avoids surprises)
+cssselect
+feedparser
+tldextract
+jieba3k
+nltk
+
+# ---- Academic / PubMed ----
+# If your code imports "pubmed", switch to pymed:
+pymed
+
+# ---- Embeddings / ML (for sentence-transformers) ----
+sentence-transformers
+torch             # CPU build; if pip complains, install per pytorch.org
+transformers
+accelerate
+
+# ---- Vectors / Milvus (Zilliz) ----
+pymilvus
+langchain-milvus
+tavily-python
+
+# ---- Graph / Viz (non-Neo4j path) ----
+networkx
+pyvis
+matplotlib
+
+# ---- Testing / Utils ----
 pytest
 tqdm
-
-langchain-milvus
-pymilvus

@@ -1,3 +1,5 @@
+# graph.py
+
 from langgraph.graph import StateGraph
 from typing import TypedDict
 from agent.planner import planner_node
@@ -11,14 +13,14 @@ class ResearchState(TypedDict, total=False):
     answers: list[str]
     sources: list[str]
     report: str
-    executive_summary: str  # ✅ Added this line
+    executive_summary: str
 
 def build_graph():
     graph = StateGraph(ResearchState)
 
     graph.add_node("planner", planner_node)
-    graph.add_node("gatherer", gatherer_node)
-    graph.add_node("synthesizer", synthesizer_node)
+    graph.add_node("gatherer", gatherer_node, is_async=True)  # ✅ updated
+    graph.add_node("synthesizer", synthesizer_node, is_async=True)  # ✅ updated
     graph.add_node("output", output_node)
 
     graph.set_entry_point("planner")
@@ -28,4 +30,4 @@ def build_graph():
     graph.add_edge("gatherer", "synthesizer")
     graph.add_edge("synthesizer", "output")
 
-    return graph.compile(name="ResearchAgent", checkpointer=None)
+    return graph.compile(name="ResearchAgent")

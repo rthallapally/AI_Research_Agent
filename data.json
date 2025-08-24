@@ -1,0 +1,331 @@
+{
+  "nodes": [
+    {
+      "data": {
+        "id": "Varanasi",
+        "label": "CITY",
+        "name": "Varanasi",
+        "description": "India's oldest continuously inhabited city",
+        "degree": 13
+      }
+    },
+    {
+      "data": {
+        "id": "Hinduism",
+        "label": "RELIGION",
+        "name": "Hinduism",
+        "description": "Major religion practiced in Varanasi",
+        "degree": 1
+      }
+    },
+    {
+      "data": {
+        "id": "Ganges_River",
+        "label": "RIVER",
+        "name": "Ganges River",
+        "description": "Sacred river in Hinduism",
+        "degree": 2
+      }
+    },
+    {
+      "data": {
+        "id": "Kashi_Vishwanath_Temple",
+        "label": "TEMPLE",
+        "name": "Kashi Vishwanath Temple",
+        "description": "Major temple in Varanasi",
+        "degree": 1
+      }
+    },
+    {
+      "data": {
+        "id": "Maha_Shivaratri",
+        "label": "FESTIVAL",
+        "name": "Maha Shivaratri",
+        "description": "Hindu festival celebrated in Varanasi",
+        "degree": 1
+      }
+    },
+    {
+      "data": {
+        "id": "Dev_Deepawali",
+        "label": "FESTIVAL",
+        "name": "Dev Deepawali",
+        "description": "Festival of lights celebrated in Varanasi",
+        "degree": 1
+      }
+    },
+    {
+      "data": {
+        "id": "Kumbh_Mela",
+        "label": "FESTIVAL",
+        "name": "Kumbh Mela",
+        "description": "Major Hindu festival celebrated in Varanasi",
+        "degree": 1
+      }
+    },
+    {
+      "data": {
+        "id": "National_Mission_for_Clean_Ganga",
+        "label": "ORGANIZATION",
+        "name": "National Mission for Clean Ganga",
+        "description": "Government initiative to clean the Ganges River",
+        "degree": 2
+      }
+    },
+    {
+      "data": {
+        "id": "Uttar_Pradesh_Pollution_Control_Board",
+        "label": "ORGANIZATION",
+        "name": "Uttar Pradesh Pollution Control Board",
+        "description": "State government organization for pollution control",
+        "degree": 2
+      }
+    },
+    {
+      "data": {
+        "id": "Varanasi_Development_Authority",
+        "label": "ORGANIZATION",
+        "name": "Varanasi Development Authority",
+        "description": "Government organization for city development",
+        "degree": 4
+      }
+    },
+    {
+      "data": {
+        "id": "Poverty",
+        "label": "SOCIO_ECONOMIC_ISSUE",
+        "name": "Poverty",
+        "description": "Major socio-economic issue in Varanasi",
+        "degree": 2
+      }
+    },
+    {
+      "data": {
+        "id": "Limited_Access_to_Healthcare",
+        "label": "SOCIO_ECONOMIC_ISSUE",
+        "name": "Limited Access to Healthcare",
+        "description": "Socio-economic issue in Varanasi",
+        "degree": 2
+      }
+    },
+    {
+      "data": {
+        "id": "Uneven_Education",
+        "label": "SOCIO_ECONOMIC_ISSUE",
+        "name": "Uneven Education",
+        "description": "Socio-economic issue in Varanasi",
+        "degree": 2
+      }
+    },
+    {
+      "data": {
+        "id": "Pollution",
+        "label": "ENVIRONMENTAL_CONCERN",
+        "name": "Pollution",
+        "description": "Major environmental concern in Varanasi",
+        "degree": 2
+      }
+    },
+    {
+      "data": {
+        "id": "Waste_Management",
+        "label": "ENVIRONMENTAL_CONCERN",
+        "name": "Waste Management",
+        "description": "Environmental concern in Varanasi",
+        "degree": 2
+      }
+    }
+  ],
+  "edges": [
+    {
+      "data": {
+        "id": "edge1",
+        "source": "Varanasi",
+        "target": "Hinduism",
+        "label": "PRACTICED_IN",
+        "description": "Hinduism is practiced in Varanasi",
+        "confidence": 0.8
+      }
+    },
+    {
+      "data": {
+        "id": "edge2",
+        "source": "Varanasi",
+        "target": "Ganges_River",
+        "label": "LOCATED_ON",
+        "description": "Varanasi is located on the Ganges River",
+        "confidence": 0.8
+      }
+    },
+    {
+      "data": {
+        "id": "edge3",
+        "source": "Kashi_Vishwanath_Temple",
+        "target": "Varanasi",
+        "label": "LOCATED_IN",
+        "description": "Kashi Vishwanath Temple is located in Varanasi",
+        "confidence": 0.8
+      }
+    },
+    {
+      "data": {
+        "id": "edge4",
+        "source": "Maha_Shivaratri",
+        "target": "Varanasi",
+        "label": "CELEBRATED_IN",
+        "description": "Maha Shivaratri is celebrated in Varanasi",
+        "confidence": 0.8
+      }
+    },
+    {
+      "data": {
+        "id": "edge5",
+        "source": "Dev_Deepawali",
+        "target": "Varanasi",
+        "label": "CELEBRATED_IN",
+        "description": "Dev Deepawali is celebrated in Varanasi",
+        "confidence": 0.8
+      }
+    },
+    {
+      "data": {
+        "id": "edge6",
+        "source": "Kumbh_Mela",
+        "target": "Varanasi",
+        "label": "CELEBRATED_IN",
+        "description": "Kumbh Mela is celebrated in Varanasi",
+        "confidence": 0.8
+      }
+    },
+    {
+      "data": {
+        "id": "edge7",
+        "source": "National_Mission_for_Clean_Ganga",
+        "target": "Ganges_River",
+        "label": "WORKS_ON",
+        "description": "National Mission for Clean Ganga works on the Ganges River",
+        "confidence": 0.8
+      }
+    },
+    {
+      "data": {
+        "id": "edge8",
+        "source": "Uttar_Pradesh_Pollution_Control_Board",
+        "target": "Varanasi",
+        "label": "WORKS_IN",
+        "description": "Uttar Pradesh Pollution Control Board works in Varanasi",
+        "confidence": 0.8
+      }
+    },
+    {
+      "data": {
+        "id": "edge9",
+        "source": "Varanasi_Development_Authority",
+        "target": "Varanasi",
+        "label": "WORKS_ON",
+        "description": "Varanasi Development Authority works on Varanasi",
+        "confidence": 0.8
+      }
+    },
+    {
+      "data": {
+        "id": "edge10",
+        "source": "Poverty",
+        "target": "Varanasi",
+        "label": "AFFECTS",
+        "description": "Poverty affects Varanasi",
+        "confidence": 0.8
+      }
+    },
+    {
+      "data": {
+        "id": "edge11",
+        "source": "Limited_Access_to_Healthcare",
+        "target": "Varanasi",
+        "label": "AFFECTS",
+        "description": "Limited Access to Healthcare affects Varanasi",
+        "confidence": 0.8
+      }
+    },
+    {
+      "data": {
+        "id": "edge12",
+        "source": "Uneven_Education",
+        "target": "Varanasi",
+        "label": "AFFECTS",
+        "description": "Uneven Education affects Varanasi",
+        "confidence": 0.8
+      }
+    },
+    {
+      "data": {
+        "id": "edge13",
+        "source": "Pollution",
+        "target": "Varanasi",
+        "label": "AFFECTS",
+        "description": "Pollution affects Varanasi",
+        "confidence": 0.8
+      }
+    },
+    {
+      "data": {
+        "id": "edge14",
+        "source": "Waste_Management",
+        "target": "Varanasi",
+        "label": "AFFECTS",
+        "description": "Waste Management affects Varanasi",
+        "confidence": 0.8
+      }
+    },
+    {
+      "data": {
+        "id": "edge15",
+        "source": "National_Mission_for_Clean_Ganga",
+        "target": "Pollution",
+        "label": "ADDRESSES",
+        "description": "National Mission for Clean Ganga addresses pollution",
+        "confidence": 0.8
+      }
+    },
+    {
+      "data": {
+        "id": "edge16",
+        "source": "Uttar_Pradesh_Pollution_Control_Board",
+        "target": "Waste_Management",
+        "label": "ADDRESSES",
+        "description": "Uttar Pradesh Pollution Control Board addresses waste management",
+        "confidence": 0.8
+      }
+    },
+    {
+      "data": {
+        "id": "edge17",
+        "source": "Varanasi_Development_Authority",
+        "target": "Poverty",
+        "label": "ADDRESSES",
+        "description": "Varanasi Development Authority addresses poverty",
+        "confidence": 0.8
+      }
+    },
+    {
+      "data": {
+        "id": "edge18",
+        "source": "Varanasi_Development_Authority",
+        "target": "Limited_Access_to_Healthcare",
+        "label": "ADDRESSES",
+        "description": "Varanasi Development Authority addresses limited access to healthcare",
+        "confidence": 0.8
+      }
+    },
+    {
+      "data": {
+        "id": "edge19",
+        "source": "Varanasi_Development_Authority",
+        "target": "Uneven_Education",
+        "label": "ADDRESSES",
+        "description": "Varanasi Development Authority addresses uneven education",
+        "confidence": 0.8
+      }
+    }
+  ]
+}

@@ -1,37 +1,51 @@
-import warnings
-warnings.filterwarnings("ignore", category=DeprecationWarning)
+import os
+import asyncio
+import logging
+from langchain_community.utilities import ArxivAPIWrapper
 
-from langchain_community.document_loaders import ArxivLoader
-import requests
-from bs4 import BeautifulSoup
+log = logging.getLogger(__name__)
+arxiv = ArxivAPIWrapper()
 
+MAX_WEB_QUERY = int(os.getenv("MAX_WEB_QUERY_CHARS", "380"))
 
-def search_arxiv(query, max_results=3):
-    loader = ArxivLoader(query=query, load_max_docs=max_results)
-    return loader.load()
+def _clamp_query(q: str) -> str:
+    q = " ".join((q or "").split())
+    return q[:MAX_WEB_QUERY]
 
-
-def get_pubmed_abstracts(query, max_results=3):
+async def search_academic(query: str, max_results: int = 3):
+    """
+    Search academic papers (arXiv) asynchronously.
+    Returns: [{'url': str, 'content': str}, ...]
+    """
     try:
-        search_url = f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmax={max_results}&term={query}&retmode=json"
-        ids = requests.get(search_url, timeout=5).json()['esearchresult']['idlist']
-        if not ids:
-            print("[PubMed] No results found.")
-            return []
+        q = _clamp_query(query)
+        loop = asyncio.get_event_loop()
+        # ArxivAPIWrapper.run returns a string summary; wrap in executor
+        results = await loop.run_in_executor(None, arxiv.run, q)
 
-        fetch_url = f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id={','.join(ids)}&retmode=xml"
-        res = requests.get(fetch_url, timeout=5)
-        soup = BeautifulSoup(res.content, "xml")
-        abstracts = []
+        # Normalize to list of dicts
+        if isinstance(results, str):
+            results = [{"url": "arxiv.org", "content": results}]
+        elif isinstance(results, dict):
+            results = [results]
+        elif isinstance(results, list):
+            flat = []
+            for r in results:
+                if isinstance(r, list):
+                    flat.extend(r)
+                else:
+                    flat.append(r)
+            results = flat
+        else:
+            results = []
 
-        for article in soup.find_all('PubmedArticle'):
-            title = article.ArticleTitle.get_text() if article.ArticleTitle else ""
-            abstract = article.AbstractText.get_text() if article.AbstractText else ""
-            if abstract:
-                abstracts.append({'title': title, 'abstract': abstract})
-
-        return abstracts
-
+        out = []
+        for r in results:
+            if isinstance(r, dict):
+                out.append({"url": r.get("url", "arxiv.org"), "content": r.get("content", str(r))})
+            else:
+                out.append({"url": "arxiv.org", "content": str(r)})
+        return out[:max_results]
     except Exception as e:
-        print(f"[PubMed Error] {e}")
+        log.warning("[Academic Search Error] %s", e)
         return []
