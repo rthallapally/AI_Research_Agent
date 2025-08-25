@@ -1,65 +1,150 @@
-# 🧠 AI Research Agent
+# AI Research Agent
 
-A multi-agent Generative AI system that automates literature reviews, knowledge extraction, and insight generation from academic papers, PDFs, and online sources. Built with LangGraph, FastAPI, Streamlit, and 
-Milvus, the agent delivers citation-backed summaries, semantic search, and knowledge graph visualizations to accelerate research.
+An end‑to‑end LangGraph‑powered research assistant that plans a topic into sub‑questions, gathers evidence from the web/academia/local PDFs, synthesizes an executive summary with citations, and converts the result into an interactive knowledge graph (nodes/edges) — all inside a clean Streamlit UI.
 
-# 🚀 Features
+Highlights: Groq LLaMA models • LangGraph orchestration • Zilliz/Milvus vector DB • HuggingFace embeddings • RAG answers with inline citations • Cytoscape / st‑link‑analysis graph viz • CSV/JSON exports
 
-Multi-Agent Orchestration: Planner → Gatherer → Synthesizer pipeline for structured research automation.
+# ✨ Features
 
-Retrieval-Augmented Generation (RAG): Semantic search across PDFs, academic APIs (arXiv, PubMed), and web sources.
+Planner (Groq LLaMA 3.x)
 
-Knowledge Graphs: Extract entities/relationships from research and visualize them interactively.
+Decomposes a research query into 3–5 precise sub‑questions.
 
-Citation Tracking: Generates APA-style references with >95% coverage for transparency.
+Gatherer (Web + Academic + PDFs)
 
-Real-Time Streaming: Token-level response streaming with FastAPI + Streamlit (<200ms latency).
+🌐 Web via Tavily (summaries + optional full‑text fetching)
 
-Extensible Architecture: Modular agents, easy to plug in new APIs or vector stores.
+🎓 arXiv via LangChain community wrappers
 
-# 🛠️ Tech Stack
+📄 Local PDFs via PyMuPDF
 
-LLM Orchestration: LangGraph, LangChain, Groq
+Embeds all content with HuggingFace MiniLM and indexes in Zilliz/Milvus
 
-Vector DBs: Milvus (Zilliz), FAISS
+Synthesizer (RAG)
 
-Embeddings: HuggingFace, OpenAI
+Answers each sub‑question with inline numeric citations ([1], [2])
 
-APIs: arXiv, PubMed, Tavily, DuckDuckGo, YouTube, GitHub
+Adds confidence scores for key claims
 
-Frontend & Streaming: Streamlit, FastAPI
+Produces a concise Executive Summary
 
-Visualization: Cytoscape.js, Pyvis
+Knowledge Graph Generation
 
+LLM converts the final report into strict JSON (nodes/edges), with robust parsing & schema hygiene
 
-# ⚙️ Setup Instructions
+Deduped, capped (≤50 nodes, ≤100 edges), and degree added for sizing
 
-1. Clone Repo
-   
-git clone https://github.com/rthallapally/AI_Research_Agent.git
+Interactive Visualization (Streamlit)
 
+Cytoscape (with fallbacks) + soft color palettes (Nord Muted, Pastel Fog, Dark Slate)
+
+Filters (min. edge confidence, hide isolates), N‑hop subgraph focus
+
+Downloads: research_report.txt, elements.json, adjacency.json, nodes.csv, edges.csv
+
+# 🧱 Architecture
+Streamlit (app.py)
+  └─ build_graph()  [LangGraph]
+     ├─ planner_node()        → subquestions[]
+     ├─ gatherer_node(async)  → docs → embeddings → Zilliz (Milvus)
+     ├─ synthesizer_node(async)
+     │     ├─ similarity_search (RAG) per subquestion
+     │     ├─ LLM answers + [#] citations + confidence
+     │     └─ Executive Summary (≤150 words)
+     └─ output_node()         → Final Report (markdown)
+
+  └─ json_generator_adapter → json_formatter (Groq LLM)
+      → knowledge_graph {nodes, edges} → UI adapters → viz/downloads
+
+# 🗂️ Project Structure
+.
+├─ app.py                      # Main Streamlit app (end-to-end agent + viz)
+├─ app_link_analysis.py        # Paste-any-text → KG JSON → quick viz
+├─ graph.py                    # LangGraph pipeline wiring
+├─ agent/
+│  ├─ planner.py               # LLM planner: sub-questions
+│  ├─ gatherer.py              # Runs web/arXiv/PDFs → embeds → Zilliz
+│  ├─ gather_web.py            # Tavily search helpers
+│  ├─ gather_academic.py       # arXiv wrapper (async-friendly)
+│  ├─ gather_docs.py           # Local PDF loading (PyMuPDF)
+│  ├─ synthesizer.py           # RAG answers + Executive Summary + report
+│  ├─ vectorstore.py           # Simple similarity_search helpers
+│  ├─ json_formatter.py        # Groq LLM → robust KG JSON generation
+│  ├─ json_generator_adapter.py# Writes data.json and attaches KG to state
+│  ├─ chunker.py               # Text/Document splitting utilities
+│  └─ citations.py             # APA-style ref formatter (optional)
+├─ requirements.txt
+├─ .gitignore                  # excludes .env and data.json, pycache
+├─ README.md                   # ← you are here
+└─ data.json                   # generated KG (gitignored)
+
+# 🚀 Quickstart
+1) Clone & install
+git clone <YOUR_REPO_URL>
 cd AI_Research_Agent
-
-3. Create Virtual Environment
-
 python -m venv venv
-
-source venv/bin/activate   # Linux/Mac
-
-venv\Scripts\activate      # Windows
-
-4. Install Dependencies
-
+# Windows: venv\Scripts\activate
+# macOS/Linux:
+source venv/bin/activate
 pip install -r requirements.txt
 
-5. Add Environment Variables
+2) Environment variables
 
-Copy .env.example → .env and add your API keys:
+Create .env (or use Streamlit secrets in deployment):
 
-GROQ_API_KEY=your_key_here
+# .env (example)
+GROQ_API_KEY=...
+TAVILY_API_KEY=...
+ZILLIZ_URI=...
+ZILLIZ_API_KEY=...
 
-ZILLIZ_API_KEY=your_key_here
+# Optional KG controls
+KG_MODEL=llama-3.3-70b-versatile
+KG_TEMPERATURE=0.0
+MAX_WEB_QUERY_CHARS=380
+WEB_MAX_RESULTS=3
 
-5. Run the App
 
-streamlit run app/app.py
+Security: Don’t commit real keys. Keep .env out of git and rotate any exposed keys.
+
+3) Run
+
+streamlit run app.py
+
+
+Enter a topic (e.g., “Impact of LLMs on medical diagnostics”).
+
+Let the agent plan → gather → synthesize → visualize.
+
+(Optional quick tool)
+
+streamlit run app_link_analysis.py
+
+
+Paste any summary text → generate a KG JSON → visualize immediately.
+
+# 🧩 Configuration & Tuning
+
+Color themes: Sidebar → Theme (Nord Muted, Pastel Fog, Dark Slate).
+
+Graph filters: Minimum edge confidence, hide isolates, N‑hop focus.
+
+Layouts: Concentric, COSE, Breadth-first, Circle, Grid.
+
+KG size caps: 50 nodes / 100 edges for UI performance (adjust in json_formatter.py).
+
+Embedding model: sentence-transformers/all-MiniLM-L6-v2 (set in gatherer).
+
+Vector DB: Zilliz (Milvus) serverless; switch collection naming or reuse strategy as needed.
+
+# 📤 Exports
+
+Report: research_report.txt
+
+Graph JSON:
+
+elements.json (filtered view for the current UI)
+
+adjacency.json (all nodes/edges as shown in UI)
+
+CSV: nodes.csv, edges.csv (filtered view)
