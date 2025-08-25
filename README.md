@@ -42,50 +42,22 @@ Filters (min. edge confidence, hide isolates), N‑hop subgraph focus
 
 Downloads: research_report.txt, elements.json, adjacency.json, nodes.csv, edges.csv
 
-# 🧱 Architecture
-Streamlit (app.py)
-  └─ build_graph()  [LangGraph]
-     ├─ planner_node()        → subquestions[]
-     ├─ gatherer_node(async)  → docs → embeddings → Zilliz (Milvus)
-     ├─ synthesizer_node(async)
-     │     ├─ similarity_search (RAG) per subquestion
-     │     ├─ LLM answers + [#] citations + confidence
-     │     └─ Executive Summary (≤150 words)
-     └─ output_node()         → Final Report (markdown)
-
-  └─ json_generator_adapter → json_formatter (Groq LLM)
-      → knowledge_graph {nodes, edges} → UI adapters → viz/downloads
-
-# 🗂️ Project Structure
-.
-├─ app.py                      # Main Streamlit app (end-to-end agent + viz)
-├─ app_link_analysis.py        # Paste-any-text → KG JSON → quick viz
-├─ graph.py                    # LangGraph pipeline wiring
-├─ agent/
-│  ├─ planner.py               # LLM planner: sub-questions
-│  ├─ gatherer.py              # Runs web/arXiv/PDFs → embeds → Zilliz
-│  ├─ gather_web.py            # Tavily search helpers
-│  ├─ gather_academic.py       # arXiv wrapper (async-friendly)
-│  ├─ gather_docs.py           # Local PDF loading (PyMuPDF)
-│  ├─ synthesizer.py           # RAG answers + Executive Summary + report
-│  ├─ vectorstore.py           # Simple similarity_search helpers
-│  ├─ json_formatter.py        # Groq LLM → robust KG JSON generation
-│  ├─ json_generator_adapter.py# Writes data.json and attaches KG to state
-│  ├─ chunker.py               # Text/Document splitting utilities
-│  └─ citations.py             # APA-style ref formatter (optional)
-├─ requirements.txt
-├─ .gitignore                  # excludes .env and data.json, pycache
-├─ README.md                   # ← you are here
-└─ data.json                   # generated KG (gitignored)
-
 # 🚀 Quickstart
+
 1) Clone & install
+
 git clone <YOUR_REPO_URL>
+
 cd AI_Research_Agent
+
 python -m venv venv
+
 # Windows: venv\Scripts\activate
+
 # macOS/Linux:
+
 source venv/bin/activate
+
 pip install -r requirements.txt
 
 2) Environment variables
@@ -93,15 +65,23 @@ pip install -r requirements.txt
 Create .env (or use Streamlit secrets in deployment):
 
 # .env (example)
+
 GROQ_API_KEY=...
+
 TAVILY_API_KEY=...
+
 ZILLIZ_URI=...
+
 ZILLIZ_API_KEY=...
 
 # Optional KG controls
+
 KG_MODEL=llama-3.3-70b-versatile
+
 KG_TEMPERATURE=0.0
+
 MAX_WEB_QUERY_CHARS=380
+
 WEB_MAX_RESULTS=3
 
 
